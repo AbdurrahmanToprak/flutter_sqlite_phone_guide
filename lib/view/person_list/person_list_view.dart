@@ -79,7 +79,12 @@ class PersonListView extends PersonListViewModel {
                       saveModel(setState);
                       Navigator.of(context).pop();
                     },
-                    child: Text("Kaydet"))
+                    child: Text("Kaydet")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Geri Dön")),
               ],
             ),
           ),
