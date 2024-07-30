@@ -18,7 +18,7 @@ class PersonDetailPage extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Kişi silindi'),
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 10),
           ),
         );
         Navigator.pop(context);

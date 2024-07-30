@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_sqlite_phone_guide/view/person_list/person_detail_page.dart';
 import 'person_list_view_model.dart';
 
@@ -22,10 +23,9 @@ class PersonListView extends PersonListViewModel {
           Expanded(
             child: personList.isEmpty
                 ? const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ),
-                  )
+                    child: Text(
+                    "Kişi Yok",
+                  ))
                 : ListView.builder(
                     itemCount: personList.length,
                     itemBuilder: (context, index) => ListTile(
