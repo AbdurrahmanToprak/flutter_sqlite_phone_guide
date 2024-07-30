@@ -27,6 +27,7 @@ abstract class PersonListViewModel extends State<PersonList> {
         setState(() {
           personList.add(personModel);
           personModel = PersonModel();
+          getPersonList();
         });
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

@@ -44,7 +44,9 @@ class PersonListView extends PersonListViewModel {
                               person: personList[index],
                             ),
                           ),
-                        );
+                        ).then((_) {
+                          getPersonList();
+                        });
                       },
                     ),
                   ),
@@ -79,12 +81,12 @@ class PersonListView extends PersonListViewModel {
                       saveModel(setState);
                       Navigator.of(context).pop();
                     },
-                    child: Text("Kaydet")),
+                    child: const Text("Kaydet")),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text("Geri Dön")),
+                    child: const Text("Geri Dön")),
               ],
             ),
           ),
