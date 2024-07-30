@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_sqlite_phone_guide/view/person_list/person_detail_page.dart';
 import 'person_list_view_model.dart';
 
@@ -8,15 +7,25 @@ class PersonListView extends PersonListViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Rehber"),
-        leading: const Icon(Icons.phone),
+        title: const Text(
+          "Telefon Rehberi",
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: const Icon(
+          Icons.phone,
+          color: Colors.white,
+        ),
         backgroundColor: Colors.blue,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showAddPersonBottomSheet(context);
         },
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.green,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       body: Column(
         children: [
@@ -81,12 +90,18 @@ class PersonListView extends PersonListViewModel {
                       saveModel(setState);
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Kaydet")),
+                    child: const Text(
+                      "Kaydet",
+                      style: TextStyle(color: Colors.green),
+                    )),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Geri Dön")),
+                    child: const Text(
+                      "Geri Dön",
+                      style: TextStyle(color: Colors.grey),
+                    )),
               ],
             ),
           ),
