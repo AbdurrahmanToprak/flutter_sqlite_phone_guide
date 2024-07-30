@@ -133,7 +133,10 @@ class PersonDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kişi Detay'),
+        title: const Text(
+          'Kişi Detay',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.blue,
       ),
       body: Padding(

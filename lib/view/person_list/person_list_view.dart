@@ -85,23 +85,28 @@ class PersonListView extends PersonListViewModel {
                     onChanged: (value) => personModel.phone = value,
                     decoration: const InputDecoration(
                         hintText: "Phone", border: OutlineInputBorder())),
-                ElevatedButton(
-                    onPressed: () {
-                      saveModel(setState);
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      "Kaydet",
-                      style: TextStyle(color: Colors.green),
-                    )),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      "Geri Dön",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+                Row(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          saveModel(setState);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Kaydet",
+                          style: TextStyle(color: Colors.green),
+                        )),
+                    const SizedBox(width: 8),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Geri Dön",
+                          style: TextStyle(color: Colors.grey),
+                        )),
+                  ],
+                ),
               ],
             ),
           ),
