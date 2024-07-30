@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sqlite_phone_guide/view/person_list/person_detail_page.dart';
 import 'person_list_view_model.dart';
 
 class PersonListView extends PersonListViewModel {
@@ -35,6 +36,16 @@ class PersonListView extends PersonListViewModel {
                         Icons.phone,
                         color: Colors.green,
                       ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PersonDetailPage(
+                              person: personList[index],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
           ),
