@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sqlite_phone_guide/view/person_list/person_detail_page.dart';
 import 'person_list_view_model.dart';
+import '../model/person_model.dart';
 
 class PersonListView extends PersonListViewModel {
+  final TextEditingController _controller = TextEditingController();
+  List<PersonModel> _filteredPersonList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_filterPersonList);
+    getPersonList();
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_filterPersonList);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _filterPersonList() {
+    setState(() {
+      _filteredPersonList = personList
+          .where((person) => person.name!
+              .toLowerCase()
+              .contains(_controller.text.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,17 +57,27 @@ class PersonListView extends PersonListViewModel {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _controller,
+              decoration: const InputDecoration(
+                labelText: 'Ara',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
           Expanded(
-            child: personList.isEmpty
+            child: _filteredPersonList.isEmpty
                 ? const Center(
-                    child: Text(
-                    "Kişi Yok",
-                  ))
+                    child: Text("Kişi Yok"),
+                  )
                 : ListView.builder(
-                    itemCount: personList.length,
+                    itemCount: _filteredPersonList.length,
                     itemBuilder: (context, index) => ListTile(
-                      title: Text(personList[index].name.toString()),
-                      subtitle: Text(personList[index].phone.toString()),
+                      title: Text(_filteredPersonList[index].name.toString()),
+                      subtitle:
+                          Text(_filteredPersonList[index].phone.toString()),
                       leading: const Icon(Icons.account_box),
                       trailing: const Icon(
                         Icons.phone,
@@ -50,7 +88,7 @@ class PersonListView extends PersonListViewModel {
                           context,
                           MaterialPageRoute(
                             builder: (context) => PersonDetailPage(
-                              person: personList[index],
+                              person: _filteredPersonList[index],
                             ),
                           ),
                         ).then((_) {
@@ -63,6 +101,12 @@ class PersonListView extends PersonListViewModel {
         ],
       ),
     );
+  }
+
+  @override
+  Future getPersonList() async {
+    await super.getPersonList();
+    _filterPersonList();
   }
 
   void showAddPersonBottomSheet(BuildContext context) {

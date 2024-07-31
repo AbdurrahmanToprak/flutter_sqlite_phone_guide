@@ -5,10 +5,11 @@ import 'person_model.dart';
 class PersonDatabaseProvider {
   final String _personDatabaseName = "person_database.db";
   final int _version = 1;
-  Database? database;
+  Database? _database;
 
   Future<void> open() async {
-    database = await openDatabase(
+    if (_database != null) return;
+    _database = await openDatabase(
       join(await getDatabasesPath(), _personDatabaseName),
       version: _version,
       onCreate: (db, version) {
@@ -24,23 +25,27 @@ class PersonDatabaseProvider {
   }
 
   Future<List<PersonModel>> getList() async {
-    List<Map<String, dynamic>> personMaps = await database!.query("person");
+    await open();
+    List<Map<String, dynamic>> personMaps = await _database!.query("person");
     return personMaps.map((e) => PersonModel.fromJson(e)).toList();
   }
 
   Future<bool> insert(PersonModel model) async {
-    final int id = await database!.insert('person', model.toJson());
+    await open();
+    final int id = await _database!.insert('person', model.toJson());
     return id > 0;
   }
 
   Future<bool> delete(int id) async {
+    await open();
     final int count =
-        await database!.delete('person', where: 'id = ?', whereArgs: [id]);
+        await _database!.delete('person', where: 'id = ?', whereArgs: [id]);
     return count > 0;
   }
 
   Future<bool> update(int id, PersonModel model) async {
-    final int count = await database!.update(
+    await open();
+    final int count = await _database!.update(
       'person',
       model.toJson(),
       where: 'id = ?',
@@ -50,6 +55,9 @@ class PersonDatabaseProvider {
   }
 
   Future<void> close() async {
-    await database!.close();
+    if (_database != null) {
+      await _database!.close();
+      _database = null;
+    }
   }
 }
