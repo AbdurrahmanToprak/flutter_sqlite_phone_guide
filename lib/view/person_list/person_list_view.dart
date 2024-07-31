@@ -43,17 +43,23 @@ class PersonListView extends PersonListViewModel {
           Icons.phone,
           color: Colors.white,
         ),
-        backgroundColor: Colors.blue,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showAddPersonBottomSheet(context);
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
+        backgroundColor: Colors.teal,
+        actions: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.green, width: 3),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.add, color: Colors.green),
+              onPressed: () {
+                showAddPersonBottomSheet(context);
+              },
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
