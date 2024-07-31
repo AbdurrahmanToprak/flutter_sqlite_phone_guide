@@ -137,7 +137,14 @@ class PersonDetailPage extends StatelessWidget {
           'Kişi Detay',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: Colors.teal,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -153,28 +160,31 @@ class PersonDetailPage extends StatelessWidget {
               'Telefon: ${person.phone ?? 'Belirtilmemiş'}',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            Row(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    _updatePerson(context);
-                  },
-                  child: const Text(
-                    "Kişiyi Güncelle",
-                    style: TextStyle(color: Colors.green),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      _updatePerson(context);
+                    },
+                    child: const Text(
+                      "Kişiyi Güncelle",
+                      style: TextStyle(color: Colors.green),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    _deletePerson(context);
-                  },
-                  child: const Text(
-                    "Kişiyi Sil",
-                    style: TextStyle(color: Colors.red),
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      _deletePerson(context);
+                    },
+                    child: const Text(
+                      "Kişiyi Sil",
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

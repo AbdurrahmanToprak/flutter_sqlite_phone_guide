@@ -85,9 +85,16 @@ class PersonListView extends PersonListViewModel {
                       subtitle:
                           Text(_filteredPersonList[index].phone.toString()),
                       leading: const Icon(Icons.account_box),
-                      trailing: const Icon(
-                        Icons.phone,
-                        color: Colors.green,
+                      trailing: IconButton(
+                        icon: const Icon(Icons.phone, color: Colors.green),
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Arama Yapılıyor...'),
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        },
                       ),
                       onTap: () {
                         Navigator.push(
